@@ -61,11 +61,11 @@ pipeline {
             }
         }
         
-         stage('Maven Build') {
+         stage('Build & Deploy') {
             steps {
-                sh 'mvn package'
-            }
-        }
-        
+                withMaven(globalMavenSettingsConfig: 'global-maven-settings', jdk: 'java17', maven: 'maven3', traceability: true) {
+                    sh 'mvn deploy'
+                }
+            }  
     }
 }
